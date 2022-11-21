@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["roomshare-room-service.csproj", "roomshare-room-service/"]
+COPY ["roomshare-room-service/roomshare-room-service.csproj", "roomshare-room-service/"]
 RUN dotnet restore "roomshare-room-service/roomshare-room-service.csproj"
 COPY . .
 WORKDIR "/src/roomshare-room-service"
