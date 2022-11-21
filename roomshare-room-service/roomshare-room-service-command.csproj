@@ -4,9 +4,10 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>roomshare_room_service</RootNamespace>
+    <RootNamespace>roomshare_room_service_command</RootNamespace>
     <UserSecretsId>2463dad3-6e44-4c0f-ac13-90c6bcc5d121</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<DockerfileTag>roomshare_room_service_command</DockerfileTag>
   </PropertyGroup>
 
   <ItemGroup>

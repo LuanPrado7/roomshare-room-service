@@ -10,16 +10,16 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["roomshare-room-service/roomshare-room-service.csproj", "roomshare-room-service/"]
-RUN dotnet restore "roomshare-room-service/roomshare-room-service.csproj"
+COPY ["roomshare-room-service-command/roomshare-room-service-command.csproj", "roomshare-room-service-command/"]
+RUN dotnet restore "roomshare-room-service-command/roomshare-room-service-command.csproj"
 COPY . .
-WORKDIR "/src/roomshare-room-service"
-RUN dotnet build "roomshare-room-service.csproj" -c Release -o /app/build
+WORKDIR "/src/roomshare-room-service-command"
+RUN dotnet build "roomshare-room-service-command.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "roomshare-room-service.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "roomshare-room-service-command.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "roomshare-room-service.dll"]
+ENTRYPOINT ["dotnet", "roomshare-room-service-command.dll"]
