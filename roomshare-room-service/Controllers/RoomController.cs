@@ -23,5 +23,17 @@ namespace roomshare_room_service.Controllers
         {          
             return Ok(await _roomService.Create(room));
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Put(RoomVO room)
+        {
+            return Ok(await _roomService.Update(room));
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(long Id)
+        {
+            return Ok(await _roomService.Delete(Id));
+        } 
     }
 }

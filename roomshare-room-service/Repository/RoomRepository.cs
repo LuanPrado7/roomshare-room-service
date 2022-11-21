@@ -26,5 +26,27 @@ namespace roomshare_room_service.Repository
 
             return _mapper.Map<RoomVO>(room);
         }
+
+        public async Task<RoomVO> Update(RoomVO vo)
+        {
+            var room = _mapper.Map<Room>(vo);
+
+            _context.Update(room);
+
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<RoomVO>(room);
+        }
+
+        public async Task<bool> Delete(long Id)
+        {
+            var room = _context.Rooms.Where(x => x.Id == Id).First();
+
+            _context.Rooms.Remove(room);
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
