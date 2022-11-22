@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   roomshare-room-service-command:
-    image: roomshare_room_service_command:latest
+    image: roomshare_room_service_command
     build:
       context: .
       dockerfile: roomshare-room-service/Dockerfile
@@ -17,7 +17,7 @@ services:
 
   database:
     image: mysql:8.0.22
-    container_name: mysqldb
+    container_name: mysqldb_roomshare
     ports:
         - "3306:3306"
     expose: 

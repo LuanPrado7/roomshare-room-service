@@ -8,12 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-
-var host = builder.Configuration["DBHOST"] ?? "localhost";
-var port = builder.Configuration["DBPORT"] ?? "3306";
-var password = builder.Configuration["MYSQL_PASSWORD"] ?? builder.Configuration.GetConnectionString("MYSQL_PASSWORD");
-var userid = builder.Configuration["MYSQL_USER"] ?? builder.Configuration.GetConnectionString("MYSQL_USER");
-var productsdb = builder.Configuration["MYSQL_DATABASE"] ?? builder.Configuration.GetConnectionString("MYSQL_DATABASE");
+var host = builder.Configuration["DBHOST"];
+var port = builder.Configuration["DBPORT"];
+var password = "admin";
+var userid = "root";
+var productsdb = "roomshare_room_api";
 
 string mySqlConnStr = $"server={host}; userid={userid};pwd={password};port={port};database={productsdb}";
 
