@@ -8,10 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var connection = builder.Configuration["MySQLConnection:MySQLConnectionString"];
 
-builder.Services.AddDbContext<MySQLContext>(
-    options => options.UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 30))));
+var host = builder.Configuration["DBHOST"] ?? "localhost";
+var port = builder.Configuration["DBPORT"] ?? "3306";
+var password = builder.Configuration["MYSQL_PASSWORD"] ?? builder.Configuration.GetConnectionString("MYSQL_PASSWORD");
+var userid = builder.Configuration["MYSQL_USER"] ?? builder.Configuration.GetConnectionString("MYSQL_USER");
+var productsdb = builder.Configuration["MYSQL_DATABASE"] ?? builder.Configuration.GetConnectionString("MYSQL_DATABASE");
+
+string mySqlConnStr = $"server={host}; userid={userid};pwd={password};port={port};database={productsdb}";
+
+builder.Services.AddDbContextPool<MySQLContext>(options =>
+  options.UseMySql(mySqlConnStr,
+      ServerVersion.AutoDetect(mySqlConnStr)));
 
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);

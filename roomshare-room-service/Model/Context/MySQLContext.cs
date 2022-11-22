@@ -4,9 +4,9 @@ namespace roomshare_room_service.Model.Context
 {
     public class MySQLContext: DbContext
     {
-        public MySQLContext() { }
-
-        public MySQLContext(DbContextOptions<MySQLContext> options) : base(options) { }
+        public MySQLContext(DbContextOptions<MySQLContext> options) : base(options) { 
+            this.Database.EnsureCreated();
+        }
 
         public DbSet<Room> Rooms { get; set; }
     }
