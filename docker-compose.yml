@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   roomshare-room-service-command:
-    image: luanprado7/roomshare_room_service_command:latest
+    image: roomshare_room_service_command:latest
     build:
       context: .
       dockerfile: roomshare-room-service/Dockerfile
