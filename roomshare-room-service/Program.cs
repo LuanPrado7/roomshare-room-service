@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using roomshare_room_service.Config;
 using roomshare_room_service.Model.Context;
 using roomshare_room_service.Repository;
+using roomshare_room_service_command.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 

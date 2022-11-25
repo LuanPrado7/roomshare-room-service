@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using roomshare_room_service.Data.ValueObjects;
 using roomshare_room_service.Model;
 using roomshare_room_service.Model.Context;
+using roomshare_room_service_command.Data.ValueObjects;
+using roomshare_room_service_command.Service;
 
 namespace roomshare_room_service.Repository
 {
@@ -9,11 +12,19 @@ namespace roomshare_room_service.Repository
     {
         private readonly MySQLContext _context;
         private IMapper _mapper;
+        private IConfiguration _configuration;
+        private string _host;
+        private string _port;
+        private string _topic;
 
-        public RoomRepository(MySQLContext context, IMapper mapper)
+        public RoomRepository(MySQLContext context, IMapper mapper, IConfiguration configuration)
         {
             _context = context;
             _mapper = mapper;
+            _configuration = configuration;
+            _host = _configuration["KAFKAHOST"];
+            _port = _configuration["KAFKAPORT"];
+            _topic = _configuration["KafkaTopics:RoomChange"];
         }
 
         public async Task<RoomVO> Create(RoomVO vo)
@@ -23,6 +34,20 @@ namespace roomshare_room_service.Repository
             _context.Rooms.Add(room);
 
             await _context.SaveChangesAsync();
+
+            RoomKafkaVO roomKafkaVO = new RoomKafkaVO()
+            {
+                Method = "POST",
+                Id = room.Id,
+                Address = room.Address,
+                CEP = room.CEP,
+                Description = room.Description,
+                LocatorKey = room.LocatorKey,
+                Name = room.Name,
+                RoomKey = room.RoomKey
+            };
+
+            KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
 
             return _mapper.Map<RoomVO>(room);
         }
@@ -35,6 +60,20 @@ namespace roomshare_room_service.Repository
 
             await _context.SaveChangesAsync();
 
+            RoomKafkaVO roomKafkaVO = new RoomKafkaVO()
+            {
+                Method = "PUT",
+                Id = room.Id,
+                Address = room.Address,
+                CEP = room.CEP,
+                Description = room.Description,
+                LocatorKey = room.LocatorKey,
+                Name = room.Name,
+                RoomKey = room.RoomKey
+            };
+
+            KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
+
             return _mapper.Map<RoomVO>(room);
         }
 
@@ -45,6 +84,20 @@ namespace roomshare_room_service.Repository
             _context.Rooms.Remove(room);
 
             await _context.SaveChangesAsync();
+
+            RoomKafkaVO roomKafkaVO = new RoomKafkaVO()
+            {
+                Method = "DELETE",
+                Id = room.Id,
+                Address = room.Address,
+                CEP = room.CEP,
+                Description = room.Description,
+                LocatorKey = room.LocatorKey,
+                Name = room.Name,
+                RoomKey = room.RoomKey
+            };
+
+            KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
 
             return true;
         }
