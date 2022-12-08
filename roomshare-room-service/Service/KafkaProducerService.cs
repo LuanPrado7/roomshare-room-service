@@ -25,7 +25,7 @@ namespace roomshare_room_service_command.Service
                         Value = message
                     });
 
-                    Debug.WriteLine($"Delivery Timestamp:{ result.Timestamp.UtcDateTime}");                
+                    Console.WriteLine($"Delivery Timestamp:{ result.Timestamp.UtcDateTime}");                
                 }
             }
             catch (Exception ex)

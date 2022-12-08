@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   roomshare-room-service-command:
-    image: luanprado7/roomshare_room_service_command:latest
+    image: roomshare_room_service_command
     build:
       context: .
       dockerfile: roomshare-room-service/Dockerfile
@@ -49,10 +49,10 @@ services:
     hostname: broker
     container_name: broker
     depends_on:
-      - zookeeper
+        - zookeeper
     ports:
-      - "9092:9092"
-      - "9101:9101"
+        - "9092:9092"
+        - "9101:9101"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
@@ -103,11 +103,51 @@ services:
       CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
-      PORT: 9021 
+      PORT: 9021
+  
+  roomshare-room-service-query:
+    #image: luanprado7/roomshare_room_service_query:latest
+    image: roomshare_room_service_query
+    build:
+      context: ../roomshare-room-service-query/
+      dockerfile: roomshare-room-service-query/Dockerfile
+    depends_on:           
+          - broker
+    ports:
+        - "5002:80"
+    restart: always
+    environment: 
+        - ASPNETCORE_ENVIRONMENT=Development
+        - KAFKAHOST=broker
+        - KAFKAPORT=19092
 
-networks: 
-  net:
-    driver: bridge
+  roomshare-room-service-consumer:
+    #image: luanprado7/roomshare_room_service_consumer:latest
+    image: roomshare_room_service_consumer
+    build:
+      context: ../roomshare-room-service-consumer/
+      dockerfile: Dockerfile
+    depends_on:           
+          - roomshare-room-service-query
+    ports:
+        - "5001:80"
+    restart: always
+    environment: 
+        - ASPNETCORE_ENVIRONMENT=Development
+        - KAFKAHOST=broker
+        - KAFKAPORT=19092
+
+  mongodb:
+    image : mongo
+    container_name: mongodb
+    environment:
+    - PUID=1000
+    - PGID=1000
+    volumes:
+    - /etc/mongodb/database:/data/db
+    ports:
+    - 27017:27017
+    restart: unless-stopped
 
 volumes:
     db-volume:

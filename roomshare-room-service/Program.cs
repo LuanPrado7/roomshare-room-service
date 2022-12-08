@@ -14,12 +14,25 @@ var port = builder.Configuration["DBPORT"];
 var password = "admin";
 var userid = "root";
 var productsdb = "roomshare_room_api";
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 string mySqlConnStr = $"server={host}; userid={userid};pwd={password};port={port};database={productsdb}";
 
 builder.Services.AddDbContextPool<MySQLContext>(options =>
   options.UseMySql(mySqlConnStr,
       ServerVersion.AutoDetect(mySqlConnStr)));
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder
+                             .AllowAnyOrigin()
+                             .AllowAnyMethod()
+                             .AllowAnyHeader();
+                      });
+});
 
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
@@ -46,5 +59,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.Run();
