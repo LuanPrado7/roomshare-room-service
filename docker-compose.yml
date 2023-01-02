@@ -2,10 +2,11 @@ version: '3.4'
 
 services:
   roomshare-room-service-command:
-    image: roomshare_room_service_command
-    build:
-      context: .
-      dockerfile: roomshare-room-service/Dockerfile
+    image: luanprado7/roomshare_room_service_command:latest
+    #image: roomshare_room_service_command
+    #build:
+    #  context: .
+    #  dockerfile: roomshare-room-service/Dockerfile
     depends_on: 
           - database
           - broker
@@ -122,11 +123,11 @@ services:
         - KAFKAPORT=19092
 
   roomshare-room-service-consumer:
-    #image: luanprado7/roomshare_room_service_consumer:latest
-    image: roomshare_room_service_consumer
-    build:
-      context: ../roomshare-room-service-consumer/
-      dockerfile: Dockerfile
+    image: luanprado7/roomshare_room_service_consumer:latest
+    #image: roomshare_room_service_consumer
+    #build:
+    #  context: ../roomshare-room-service-consumer/
+    #  dockerfile: Dockerfile
     depends_on:           
           - roomshare-room-service-query
     ports:
