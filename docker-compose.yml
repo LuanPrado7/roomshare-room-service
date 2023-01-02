@@ -107,11 +107,11 @@ services:
       PORT: 9021
   
   roomshare-room-service-query:
-    #image: luanprado7/roomshare_room_service_query:latest
-    image: roomshare_room_service_query
-    build:
-      context: ../roomshare-room-service-query/
-      dockerfile: roomshare-room-service-query/Dockerfile
+    image: luanprado7/roomshare_room_service_query:latest
+    #image: roomshare_room_service_query
+    #build:
+    #  context: ../roomshare-room-service-query/
+    #  dockerfile: roomshare-room-service-query/Dockerfile
     depends_on:           
           - broker
     ports:
