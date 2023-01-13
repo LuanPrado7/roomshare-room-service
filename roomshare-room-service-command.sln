@@ -9,6 +9,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomshare.Room.Service.Command", "Roomshare.Room.Service.Command\Roomshare.Room.Service.Command.csproj", "{BAC8B468-DE2B-45F7-A88E-60D476424CAC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Core", "Tests.Core\Tests.Core.csproj", "{5E3E4DD3-E490-4CAA-BB0F-C1EA4CFDF1DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BAC8B468-DE2B-45F7-A88E-60D476424CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAC8B468-DE2B-45F7-A88E-60D476424CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAC8B468-DE2B-45F7-A88E-60D476424CAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E3E4DD3-E490-4CAA-BB0F-C1EA4CFDF1DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E3E4DD3-E490-4CAA-BB0F-C1EA4CFDF1DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E3E4DD3-E490-4CAA-BB0F-C1EA4CFDF1DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E3E4DD3-E490-4CAA-BB0F-C1EA4CFDF1DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
