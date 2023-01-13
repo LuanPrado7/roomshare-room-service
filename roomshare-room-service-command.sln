@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "roomshare-room-service-comm
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8B5C9656-0201-4814-A4AD-813694608881}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomshare.Room.Service.Command", "Roomshare.Room.Service.Command\Roomshare.Room.Service.Command.csproj", "{BAC8B468-DE2B-45F7-A88E-60D476424CAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8B5C9656-0201-4814-A4AD-813694608881}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B5C9656-0201-4814-A4AD-813694608881}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B5C9656-0201-4814-A4AD-813694608881}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAC8B468-DE2B-45F7-A88E-60D476424CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAC8B468-DE2B-45F7-A88E-60D476424CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAC8B468-DE2B-45F7-A88E-60D476424CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAC8B468-DE2B-45F7-A88E-60D476424CAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
