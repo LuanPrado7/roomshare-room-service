@@ -46,18 +46,18 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   broker:
-    image: confluentinc/cp-server:6.1.0
+    image: confluentinc/cp-server:5.5.10
     hostname: broker
     container_name: broker
     depends_on:
         - zookeeper
     ports:
         - "9092:9092"
-        - "9101:9101"
+        - "19092:19092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://broker:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://broker:19092,LISTENER_DOCKER_EXTERNAL://127.0.0.1:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
       KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
@@ -105,22 +105,6 @@ services:
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       PORT: 9021
-  
-  roomshare-room-service-query:
-    image: luanprado7/roomshare_room_service_query:latest
-    #image: roomshare_room_service_query
-    #build:
-    #  context: ../roomshare-room-service-query/
-    #  dockerfile: roomshare-room-service-query/Dockerfile
-    depends_on:           
-          - broker
-    ports:
-        - "5002:80"
-    restart: always
-    environment: 
-        - ASPNETCORE_ENVIRONMENT=Development
-        - KAFKAHOST=broker
-        - KAFKAPORT=19092
 
   roomshare-room-service-consumer:
     image: luanprado7/roomshare_room_service_consumer:latest
@@ -137,6 +121,33 @@ services:
         - ASPNETCORE_ENVIRONMENT=Development
         - KAFKAHOST=broker
         - KAFKAPORT=19092
+  
+  roomshare-room-service-query:
+    image: luanprado7/roomshare_room_service_query:latest
+    #image: roomshare_room_service_query
+    #build:
+    #  context: ../roomshare-room-service-query/
+    #  dockerfile: roomshare-room-service-query/Dockerfile
+    depends_on:           
+          - broker
+    ports:
+        - "5002:80"
+    restart: always
+    environment: 
+        - ASPNETCORE_ENVIRONMENT=Development
+
+  roomshare-room-service-auth:
+    image: luanprado7/roomshare_auth_api:latest
+    #image: roomshare_room_service_auth
+    #build:
+    #  context: ../roomshare-room-service-auth/
+    #  dockerfile: auth-api/Dockerfile
+    ports:
+        - "5003:80"
+    restart: always
+    environment: 
+        - ASPNETCORE_ENVIRONMENT=Development
+        - DBHOST=database
 
   mongodb:
     image : mongo

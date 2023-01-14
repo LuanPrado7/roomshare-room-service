@@ -47,7 +47,7 @@ namespace roomshare_room_service.Repository
                 RoomKey = room.RoomKey
             };
 
-            KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
+            await KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
 
             return _mapper.Map<RoomVO>(room);
         }
@@ -72,7 +72,7 @@ namespace roomshare_room_service.Repository
                 RoomKey = room.RoomKey
             };
 
-            KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
+            await KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
 
             return _mapper.Map<RoomVO>(room);
         }
@@ -97,7 +97,7 @@ namespace roomshare_room_service.Repository
                 RoomKey = room.RoomKey
             };
 
-            KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
+            await KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
 
             return true;
         }

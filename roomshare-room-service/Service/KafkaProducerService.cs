@@ -31,6 +31,8 @@ namespace roomshare_room_service_command.Service
             catch (Exception ex)
             {
                 Console.WriteLine($"Error occured: {ex.Message}");
+
+                throw;
             }
 
         }
