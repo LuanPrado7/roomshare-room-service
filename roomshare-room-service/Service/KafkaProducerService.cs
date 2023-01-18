@@ -14,6 +14,8 @@ namespace roomshare_room_service_command.Service
                 ClientId = Dns.GetHostName()
             };
 
+            if (topic == null) topic = "roomshare_room_service";
+
             try
             {
                 using (var producer = new ProducerBuilder
