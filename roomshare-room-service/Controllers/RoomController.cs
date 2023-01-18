@@ -20,6 +20,21 @@ namespace roomshare_room_service.Controllers
             _roomService = roomService;
         }
 
+        /// <summary>
+        /// Cadastrar uma sala comercial.
+        /// </summary>
+        /// <remarks>
+        /// Requisicão simples (é preciso passar o Token de autorização):
+        /// 
+        ///     POST api/v1/Room
+        ///     {
+        ///         "name": "Sala Comercial em Moema",
+        ///         "description": "Bela sala comercial 50m2,ar.cond,uma vaga a 2 quadra do metrô Moema, restaurantes e bares na porta",  
+        ///         "address": "Avenida Moema, 500",
+        ///         "CEP": 12345678
+        ///     }
+        /// </remarks>
+        /// <param name="room"></param>    
         [HttpPost]
         public async Task<IActionResult> Post(RoomVO room)
         {
@@ -36,6 +51,22 @@ namespace roomshare_room_service.Controllers
             return Ok(await _roomService.Create(room));
         }
 
+        /// <summary>
+        /// Atualizar cadastro de uma sala comercial.
+        /// </summary>
+        /// <remarks>
+        /// Requisicão simples (é preciso passar o Token de autorização):
+        /// 
+        ///     PUT api/v1/Room
+        ///     {
+        ///         "id": 90,
+        ///         "name": "Sala Comercial em Moema",
+        ///         "description": "Bela sala comercial 50m2,ar.cond,uma vaga a 2 quadra do metrô Moema, restaurantes e bares na porta",  
+        ///         "address": "Avenida Moema, 500",
+        ///         "CEP": 12345678
+        ///     }
+        /// </remarks>
+        /// <param name="room"></param>   
         [HttpPut]
         public async Task<IActionResult> Put(RoomVO room)
         {
@@ -52,6 +83,10 @@ namespace roomshare_room_service.Controllers
             return Ok(await _roomService.Update(room));
         }
 
+        /// <summary>
+        /// Excluir cadastro de uma sala comercial.
+        /// </summary>
+        /// <param name="Id"></param>  
         [HttpDelete]
         public async Task<IActionResult> Delete(long Id)
         {

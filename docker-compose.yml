@@ -18,6 +18,7 @@ services:
         - ASPNETCORE_ENVIRONMENT=Development
         - KAFKAHOST=broker
         - KAFKAPORT=19092
+        - WEBHOOK=https://fiapcom.webhook.office.com/webhookb2/8cf1d42e-933f-4b80-9131-bb37825418c5@11dbbfe2-89b8-4549-be10-cec364e59551/IncomingWebhook/8192303831d148bf96360aa6bffdaadd/033221b5-17e5-4b3f-a083-a40cfae369f7
 
   database:
     image: mysql:8.0.22

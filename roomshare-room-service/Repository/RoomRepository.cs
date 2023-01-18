@@ -4,6 +4,7 @@ using roomshare_room_service.Data.ValueObjects;
 using roomshare_room_service.Model;
 using roomshare_room_service.Model.Context;
 using roomshare_room_service_command.Data.ValueObjects;
+using roomshare_room_service_command.Integration;
 using roomshare_room_service_command.Service;
 
 namespace roomshare_room_service.Repository
@@ -49,6 +50,8 @@ namespace roomshare_room_service.Repository
 
             await KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
 
+            await TeamsIntegration.SendMessageTeams($"A sala '{room.Name}' (Id {room.Id}) foi cadastrada no sistema.");
+
             return _mapper.Map<RoomVO>(room);
         }
 
@@ -74,6 +77,8 @@ namespace roomshare_room_service.Repository
 
             await KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
 
+            await TeamsIntegration.SendMessageTeams($"A sala '{room.Name}' (Id {room.Id}) foi atualizada no sistema.");
+
             return _mapper.Map<RoomVO>(room);
         }
 
@@ -98,6 +103,8 @@ namespace roomshare_room_service.Repository
             };
 
             await KafkaProducerService.SendChangeRequest(_host, _port, _topic, JsonConvert.SerializeObject(roomKafkaVO));
+
+            await TeamsIntegration.SendMessageTeams($"A sala '{room.Name}' (Id {room.Id}) foi deletada no sistema.");
 
             return true;
         }
